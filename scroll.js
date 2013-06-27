@@ -52,7 +52,9 @@
 		scroll.prototype = {
 
 			init: function( element ) {
-				console.dir( scrollUtill )
+				if( !element ){
+					throw new Error('jebarid.scroll element can\'t be null')
+				}
 				this.element = element;
 			},
 
