@@ -27,10 +27,10 @@
 
 	//var jebaird.scrollUtil = window.jebaird || ( window.jebaird = {} );
 
-	var scrollUtil = ( function() {
+	var Scroll = ( function() {
 
-		var scrollUtil = function( element ) {
-			return new scrollUtil.prototype.init( element );
+		var Scroll = function( element ) {
+			return new Scroll.prototype.init( element );
 		};
 
 		scrollUtil._props = {
@@ -168,9 +168,9 @@
 			}
 		}
 
-		scrollUtils.prototype.init.prototype = scrollUtils.prototype;
+		Scroll.prototype.init.prototype = scrollUtils.prototype;
 
-		return ( window.scrollUtils = scrollUtils );
+		return ( window.Scroll = Scroll );
 
 	})();
 
