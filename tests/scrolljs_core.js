@@ -26,10 +26,14 @@ test('core', function(){
 	
 	equals( yes.scrollable(), true, 'both');
 	
-	//page could
-	ok( yes.pageCountVert() )
-	ok( yes.pageCountHorz() )
+	//page count
+	console.log(yes.pageCountHorz())
+	equals( yes.pageCountVert(), 3 )
+	equals( yes.pageCountHorz(), 2 )
 	
+	
+	equals( no.pageCountVert(), 1 )
+	equals( no.pageCountHorz(), 1 )
 	
 	
 });
