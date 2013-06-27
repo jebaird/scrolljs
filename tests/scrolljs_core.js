@@ -1,6 +1,6 @@
-
 (function(){
 module("jebaird.scroll: core");
+
 
 test("namespace", function(){
 
@@ -12,9 +12,24 @@ test("namespace", function(){
 	
 });
 
-test('vertical', function(){
+test('core', function(){
 	
-	var s = jebaird.scroll(document.getElementById('target'));
+	var yes = jebaird.scroll(document.getElementById('is-scrollable'));
+	var no = jebaird.scroll(document.getElementById('not-scrollable'));
+	
+	equals( yes.isVert(), true, 'scroll vert');
+	equals( yes.isHorz(), true, 'scroll vert');
+	
+	
+	equals( no.isVert(), false, 'scroll hoz');
+	equals( no.isHorz(), false, 'scroll hoz');
+	
+	equals( yes.scrollable(), true, 'both');
+	
+	//page could
+	ok( yes.pageCountVert() )
+	ok( yes.pageCountHorz() )
+	
 	
 	
 });

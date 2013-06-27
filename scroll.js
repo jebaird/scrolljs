@@ -79,12 +79,12 @@
 			 */
 
 			pageCountVert: function() {
-				return Math.ceil( this._getScrollDimension() / this.viewPort()[ 1 ] );
+				return Math.ceil( this.element.scrollHeight / this.viewPort()[ 1 ] );
 			},
 
 			pageCountHorz: function() {
 				//figure out how many "pages" are in the scrollable and devide that by 100 to get the height perenctage
-				return Math.ceil( this.element.scrollHeight / this.viewPort()[ 0 ] );
+				return Math.ceil( this.element.scrollWidth / this.viewPort()[ 0 ] );
 			},
 
 			/*
