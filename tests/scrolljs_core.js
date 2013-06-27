@@ -1,5 +1,10 @@
 (function(){
-module("jebaird.scroll: core");
+module("jebaird.scroll: ", {
+	setup: function(){
+		this.yes = jebaird.scroll(document.getElementById('is-scrollable'));
+		this.no = jebaird.scroll(document.getElementById('not-scrollable'));
+	}
+});
 
 
 test("namespace", function(){
@@ -14,8 +19,9 @@ test("namespace", function(){
 
 test('core', function(){
 	
-	var yes = jebaird.scroll(document.getElementById('is-scrollable'));
-	var no = jebaird.scroll(document.getElementById('not-scrollable'));
+	var yes = this.yes,
+		no = this.no;
+
 	
 	equals( yes.isVert(), true, 'scroll vert');
 	equals( yes.isHorz(), true, 'scroll vert');
@@ -34,10 +40,34 @@ test('core', function(){
 	equals( no.pageCountVert(), 1 );
 	equals( no.pageCountHorz(), 1 );
 	
+	
+});
+
+test('changing scroll Top/Left', function(){
+	
+	var yes = this.yes,
+		no = this.no;
+	
 	var viewPort = yes.viewPort();
 	
+	yes.pageDown();
+	equals( yes.element.scrollTop, viewPort[ 1 ],'pagedown' );
 	
-	equals( yes.element.scrollTop, viewPort[ 1 ] );
+	yes.pageRight();
+	equals( yes.element.scrollLeft, viewPort[ 0 ],'pageRight' );
+	
+	
+	stop();
+	
+	setTimeout(function(){
+		start();
+		yes.pageUp();
+		equals( yes.element.scrollTop, 0,'pageUP' );
+		
+		yes.pageLeft();
+		equals( yes.element.scrollLeft, 0,'pageLeft' );
+	},1500);
+	
 	
 	
 });

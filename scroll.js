@@ -99,10 +99,10 @@
 			},
 
 			pageRight: function() {
-				return this.viewPort()[ 0 ];
+				this.element.scrollLeft += this.viewPort()[ 0 ];
 			},
 			pageLeft: function() {
-				return -this.viewPort()[ 0 ];
+				this.element.scrollLeft += -this.viewPort()[ 0 ]
 			},
 
 			pixelRatioVert: function( compareElement ) {
