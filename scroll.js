@@ -24,16 +24,16 @@
  *
  */
 ( function() {
+	
+	var jebaird = window.jebaird || ( window.jebaird = {} );
 
-	//var jebaird.scrollUtil = window.jebaird || ( window.jebaird = {} );
+	var scroll = (function() {
 
-	var Scroll = ( function() {
-
-		var Scroll = function( element ) {
-			return new Scroll.prototype.init( element );
+		var scroll = function( element ) {
+			return new scroll.prototype.init( element );
 		};
 
-		scrollUtil._props = {
+		scroll._props = {
 			'vert': {
 				//height // width of the target element
 				offset: 'offsetHeight',
@@ -49,10 +49,10 @@
 				}
 		};
 
-		scrollUtils.prototype = {
+		scroll.prototype = {
 
 			init: function( element ) {
-				console.dir( ScrollUtill )
+				console.dir( scrollUtill )
 				this.element = element;
 			},
 
@@ -159,7 +159,7 @@
 			_scrollPosition: function( orentation, offset ) {
 				/*
 				 * 	//get the scrollbar position
-				 _getScrollPosition: function(){
+				 _getscrollPosition: function(){
 				 var element = this.element[ 0 ];
 				 return ( this._isVert() ) ? element.scrollTop : element.scrollLeft;
 				 },
@@ -168,9 +168,9 @@
 			}
 		}
 
-		Scroll.prototype.init.prototype = scrollUtils.prototype;
+		scroll.prototype.init.prototype = scroll.prototype;
 
-		return ( window.Scroll = Scroll );
+		return ( jebaird.scroll = scroll );
 
 	})();
 
