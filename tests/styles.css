@@ -1,0 +1,13 @@
+/*
+ * test styles
+ * make the content overflow nicely
+ */
+#is-scrollable{
+	overflow:scroll;
+	width: 100px;
+	height: 100px;
+}
+
+#is-scrollable p{
+	width: 200px;
+}
