@@ -71,5 +71,26 @@ test('changing scroll Top/Left', function(){
 	
 	
 });
+
+test('px ratio', function(){
+	var yes = this.yes,
+		no = this.no,
+		//scrollbar is just a elm to compare the px ratio with
+		scrollbar = document.getElementById('scrollbar');
+		
+	ok( yes.pixelRatioVert( scrollbar ) )
+	
+	ok( yes.pixelRatioHorz( scrollbar ) )
+		
+});
+
+test('viewport',function(){
+	var viewPort = this.yes.viewPort();
+	
+	equals( viewPort[ 0 ], this.yes.element.offsetWidth )
+	equals( viewPort[ 1 ], this.yes.element.offsetHeight )
+})
+
+
 	
 })();

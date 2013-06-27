@@ -142,7 +142,9 @@
 			 *
 			 */
 			_pixelRatio: function( scrollbar, orentation ) {
-				var element = this.element, viewPort = this.viewPort();
+				var element = this.element, 
+					viewPort = this.viewPort();
+					
 				if( orentation == 1 ) {
 					return ( ( element.scrollHeight - viewPort[ 1 ] ) / ( viewPort[ 1 ] - scrollbar.clientHeight )
 					);
