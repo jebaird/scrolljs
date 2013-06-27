@@ -27,13 +27,17 @@ test('core', function(){
 	equals( yes.scrollable(), true, 'both');
 	
 	//page count
-	console.log(yes.pageCountHorz())
-	equals( yes.pageCountVert(), 3 )
-	equals( yes.pageCountHorz(), 2 )
+	equals( yes.pageCountVert(), 3 );
+	equals( yes.pageCountHorz(), 2 );
 	
 	
-	equals( no.pageCountVert(), 1 )
-	equals( no.pageCountHorz(), 1 )
+	equals( no.pageCountVert(), 1 );
+	equals( no.pageCountHorz(), 1 );
+	
+	var viewPort = yes.viewPort();
+	
+	
+	equals( yes.element.scrollTop, viewPort[ 1 ] );
 	
 	
 });

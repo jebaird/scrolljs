@@ -88,13 +88,14 @@
 			},
 
 			/*
-			 * page up and down just return the scrollLeft / top of the next page
+			 * paging dont change the scroll postion of the element
+			 * just return the calculated scroll so you can 
 			 */
 			pageUp: function() {
-				return -this.viewPort()[ 1 ];
+				this.element.scrollTop+=-this.viewPort()[ 1 ];
 			},
 			pageDown: function() {
-				return this.viewPort()[ 1 ];
+				this.element.scrollTop+=this.viewPort()[ 1 ];
 			},
 
 			pageRight: function() {
