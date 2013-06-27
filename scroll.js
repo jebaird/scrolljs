@@ -34,19 +34,19 @@
 		};
 
 		scrollUtil._props = {
-		'vert': {
-		//height // width of the target element
-		offset: 'offsetHeight',
-		//where we are scrolling
-		pos: 'scrollTop',
-		//scroll content
-		length: 'scrollHeight'
-		},
-		'horz': {
-		offset: 'offsetWidth',
-		pos: 'scrollLeft',
-		length: 'scrollWidth'
-
+			'vert': {
+				//height // width of the target element
+				offset: 'offsetHeight',
+				//where we are scrolling
+				pos: 'scrollTop',
+				//scroll content
+				length: 'scrollHeight'
+			},
+			'horz': {
+				offset: 'offsetWidth',
+				pos: 'scrollLeft',
+				length: 'scrollWidth'
+				}
 		};
 
 		scrollUtils.prototype = {
