@@ -59,12 +59,12 @@
 			},
 
 			//is element scrollable
-			isVert: function() {
+			scrollableVert: function() {
 				var element = this.element;
 				//true if can scroll
 				return ( element.scrollHeight > element.offsetHeight );
 			},
-			isHorz: function() {
+			scrollableHorz: function() {
 				var element = this.element;
 				return ( element.scrollWidth > element.offsetWidth );
 			},
@@ -72,7 +72,7 @@
 			 * can the element scroll?
 			 */
 			scrollable: function() {
-				return ( this.isVert() || this.isHorz() ) ? true : false;
+				return ( this.scrollableVert() || this.scrollableHorz() ) ? true : false;
 			},
 			/*
 			 * return the number of view ports that fit it
@@ -89,7 +89,7 @@
 
 			/*
 			 * paging dont change the scroll postion of the element
-			 * just return the calculated scroll so you can 
+			 * call scrollVert, to chagne
 			 */
 			pageUp: function() {
 				this.element.scrollTop+=-this.viewPort()[ 1 ];
@@ -103,6 +103,30 @@
 			},
 			pageLeft: function() {
 				this.element.scrollLeft += -this.viewPort()[ 0 ]
+			},
+			
+			scrollVert: function( offset ) {
+				if( offset === undefined ) {
+					///return
+				}
+
+				//set
+
+				/*
+				 * firefox does scroll the body with target being body but chome does
+				 */
+				if( appendTarget.tagName == 'BODY' ) {
+					window.scroll( window.scrollX + scrollLeft, window.scrollY );
+				} else {
+					appendTarget.scrollLeft = scrollLeft;
+				}
+			},
+			scrollHorz: function( offset ) {
+				if( offset === undefined ) {
+					///return
+				}
+
+				//set
 			},
 
 			pixelRatioVert: function( compareElement ) {
@@ -133,30 +157,6 @@
 			viewPort: function() {
 				var element = this.element;
 				return [ element.offsetWidth, element.offsetHeight ];
-			},
-
-			scrollVert: function( offset ) {
-				if( offset === undefined ) {
-					///return
-				}
-
-				//set
-
-				/*
-				 * firefox does scroll the body with target being body but chome does
-				 */
-				if( appendTarget.tagName == 'BODY' ) {
-					window.scroll( window.scrollX + scrollLeft, window.scrollY );
-				} else {
-					appendTarget.scrollLeft = scrollLeft;
-				}
-			},
-			scrollHorz: function( offset ) {
-				if( offset === undefined ) {
-					///return
-				}
-
-				//set
 			},
 
 			_scrollPosition: function( orentation, offset ) {

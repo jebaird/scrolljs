@@ -23,12 +23,12 @@ test('core', function(){
 		no = this.no;
 
 	
-	equals( yes.isVert(), true, 'scroll vert');
-	equals( yes.isHorz(), true, 'scroll vert');
+	equals( yes.scrollableVert(), true, 'scroll vert');
+	equals( yes.scrollableHorz(), true, 'scroll vert');
 	
 	
-	equals( no.isVert(), false, 'scroll hoz');
-	equals( no.isHorz(), false, 'scroll hoz');
+	equals( no.scrollableVert(), false, 'scroll hoz');
+	equals( no.scrollableHorz(), false, 'scroll hoz');
 	
 	equals( yes.scrollable(), true, 'both');
 	
