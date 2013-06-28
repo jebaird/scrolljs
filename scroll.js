@@ -92,17 +92,17 @@
 			 * call scrollVert, to chagne
 			 */
 			pageUp: function() {
-				this.element.scrollTop+=-this.viewPort()[ 1 ];
+				this.scrollVert( -this.viewPort()[ 1 ] );
 			},
 			pageDown: function() {
-				this.element.scrollTop+=this.viewPort()[ 1 ];
+				this.scrollVert( this.viewPort()[ 1 ] );
 			},
 
 			pageRight: function() {
-				this.element.scrollLeft += this.viewPort()[ 0 ];
+				this.scrollHorz( this.viewPort()[ 0 ] );
 			},
 			pageLeft: function() {
-				this.element.scrollLeft += -this.viewPort()[ 0 ]
+				this.scrollHorz( -this.viewPort()[ 0 ] );
 			},
 			
 			scrollVert: function( offset ) {
