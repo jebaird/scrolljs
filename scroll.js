@@ -47,7 +47,7 @@
 
 		scroll.prototype = {
 			/*
-			 * @param
+			 * @param {object} element a dom element to create the instnace
 			 */
 			init: function( element ) {
 				if( !element ){
@@ -58,73 +58,119 @@
 				this._props = clone( scroll._props );
 			},
 			
-			//is element scrollable
+			/*
+			 * can the element be scrolled vertical?
+			 * @return {boolean}
+			 */
 			scrollableVert: function() {
 				return this._scrollable( 'vert' );
 			},
+			/*
+			 * can the element be scrolled horizontal?
+			 * @return {boolean}
+			 */
 			scrollableHoz: function() {
 				return this._scrollable( 'hoz' );
 			},
 			/*
-			 * can the element scroll?
+			 * can the element be scrolled vertically or horizontally?
+			 * @return { boolean }
 			 */
 			scrollable: function() {
 				return ( this.scrollableVert() || this.scrollableHoz() ) ? true : false;
 			},
-			
-			_scrollable: function( orentation ){
+			/*
+			 * @private
+			 * @param { string } orientation vert or hoz
+			 * @return { boolean }
+			 */
+			_scrollable: function( orientation ){
 				var element = this.element,
-					props = this._props[ orentation ];
+					props = this._props[ orientation ];
 				return element[ props.dim ] > element[ props.offset ];
 			},
 			/*
-			 * return the number of view ports that fit it
+			 * returns the number of vertical pages
+			 * @return {int}
 			 */
 			pageCountVert: function() {
 				return this._pageCount( 'vert' );
 			},
-			//if we cant scroll this will return 1
+			/* 
+			 * returns the number of pages horizontally
+			 * @return {int}
+			 */
 			pageCountHoz: function() {
 				
 				return this._pageCount( 'hoz' );
 			},
-			
-			_pageCount: function( orentation ){
-				var dim = this._props[ orentation ].dim;
-				return Math.ceil( this.element[ dim ] / this.viewPort()[ orentation ] );
+			/*
+			 * returns the number of "pages" that is element has
+			 * pages are the number of viewports the element has to its props.scroll
+			 * say you have an element that has a height of 100px and a scrollHeight of 300 
+			 * this method would return 3
+			 * 
+			 * if the element isnt scrollable it returns 1
+			 * 
+			 * @param {string} orientation vert / hoz
+			 * @return {int}
+			 * 
+			 */
+			_pageCount: function( orientation ){
+				var dim = this._props[ orientation ].dim;
+				return Math.ceil( this.element[ dim ] / this.viewPort()[ orientation ] );
 			},
 			/*
-			 * paging dont change the scroll postion of the element
-			 * call scrollVert, to chagne
+			 * move the scroll position up one viewport
+			 *
 			 */
 			pageUp: function() {
 				this.scrollVert( -this.viewPort()[ 'vert' ] );
 			},
+			/*
+			 * move the scroll position down one viewport
+			 *
+			 */
 			pageDown: function() {
 				this.scrollVert( this.viewPort()[ 'vert' ] );
 			},
-
+			/*
+			 * move the scroll position right one viewport
+			 *
+			 */
 			pageRight: function() {
 				this._scroll( this.viewPort()[ 'hoz' ], 'hoz' );
 			},
+			/*
+			 * move the scroll position left one viewport
+			 *
+			 */
 			pageLeft: function() {
 				this._scroll( -this.viewPort()[ 'hoz' ], 'hoz' );
 			},
-			
+			/*
+			 * @param {int} offset the number of px to add to the scroll position
+			 * @return {mixed} if offset is undefined returns the scroll Position
+			 */
 			scrollVert: function( offset ) {
 				return this._scroll( offset, 'vert' );
 			},
+			/*
+			 * @param {int} offset the number of px to add to the scroll position
+			 * @return {mixed} if offset is undefined returns the scroll Position
+			 */
 			scrollHoz: function( offset ) {
 				return this._scroll( offset, 'hoz' );
 			},
-			_scroll: function( offset, orentation ){
+			/*
+			 * @param {int} offset the number of px to add to the scroll position
+			 * @param {string} orientation vert / hoz
+			 * @return {mixed} if offset is undefined returns the scroll Position
+			 */
+			_scroll: function( offset, orientation ){
 				
 				var element = this.element,
-					props = this._props[ orentation ],
-					scroll = {
-						vert: 'scrollX',
-						hoz: 'scrollY'
-					};
+					props = this._props[ orientation ]
 				
 				if( offset === undefined ) {
 					///return
@@ -148,10 +194,10 @@
 			 * //figure out how many "pages" are in the scrollable and devide that by 100 to get the height perenctage
 			 *
 			 */
-			_pixelRatio: function( compareElement, orentation ) {
+			_pixelRatio: function( compareElement, orientation ) {
 				var element = this.element, 
-					viewPort = this.viewPort()[ orentation ],
-					props = this._props[ orentation ];
+					viewPort = this.viewPort()[ orientation ],
+					props = this._props[ orientation ];
 					
 					
 				return (
