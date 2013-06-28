@@ -21,24 +21,24 @@ test('core', function(){
 	
 	var yes = this.yes,
 		no = this.no;
-
+	
 	
 	equals( yes.scrollableVert(), true, 'scroll vert');
-	equals( yes.scrollableHorz(), true, 'scroll vert');
+	equals( yes.scrollableHoz(), true, 'scroll vert');
 	
 	
 	equals( no.scrollableVert(), false, 'scroll hoz');
-	equals( no.scrollableHorz(), false, 'scroll hoz');
+	equals( no.scrollableHoz(), false, 'scroll hoz');
 	
 	equals( yes.scrollable(), true, 'both');
 	
 	//page count
 	equals( yes.pageCountVert(), 3 );
-	equals( yes.pageCountHorz(), 2 );
+	equals( yes.pageCountHoz(), 2 );
 	
 	
 	equals( no.pageCountVert(), 1 );
-	equals( no.pageCountHorz(), 1 );
+	equals( no.pageCountHoz(), 1 );
 	
 	
 });
@@ -51,10 +51,10 @@ test('changing scroll Top/Left', function(){
 	var viewPort = yes.viewPort();
 	
 	yes.pageDown();
-	equals( yes.element.scrollTop, viewPort[ 1 ],'pagedown' );
+	equals( yes.element.scrollTop, viewPort.vert, 'pagedown' );
 	
 	yes.pageRight();
-	equals( yes.element.scrollLeft, viewPort[ 0 ],'pageRight' );
+	equals( yes.element.scrollLeft, viewPort.hoz, 'pageRight' );
 	
 	
 	stop();
@@ -80,15 +80,15 @@ test('px ratio', function(){
 		
 	ok( yes.pixelRatioVert( scrollbar ) )
 	
-	ok( yes.pixelRatioHorz( scrollbar ) )
+	ok( yes.pixelRatioHoz( scrollbar ) )
 		
 });
 
 test('viewport',function(){
 	var viewPort = this.yes.viewPort();
 	
-	equals( viewPort[ 0 ], this.yes.element.offsetWidth )
-	equals( viewPort[ 1 ], this.yes.element.offsetHeight )
+	equals( viewPort.vert, this.yes.element.offsetWidth )
+	equals( viewPort.hoz, this.yes.element.offsetHeight )
 })
 
 

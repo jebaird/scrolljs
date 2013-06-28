@@ -27,25 +27,36 @@
 	
 	var jebaird = window.jebaird || ( window.jebaird = {} );
 
+	var clone = (function() {
+			return function( obj ) {
+				Clone.prototype = obj;
+				return new Clone()
+			};
+			function Clone(){}
+		}()); 
+
+
 	var scroll = (function() {
 
 		var scroll = function( element ) {
 			return new scroll.prototype.init( element );
 		};
-
+		/*@static */
+		//TODO: IMPLAMENT THIS
 		scroll._props = {
 			'vert': {
 				//height // width of the target element
 				offset: 'offsetHeight',
 				//where we are scrolling
-				pos: 'scrollTop',
+				scroll: 'scrollTop',
 				//scroll content
-				length: 'scrollHeight'
+				dim: 'scrollHeight'
 			},
-			'horz': {
+			//hoz
+			'hoz': {
 				offset: 'offsetWidth',
-				pos: 'scrollLeft',
-				length: 'scrollWidth'
+				scroll: 'scrollLeft',
+				dim: 'scrollWidth'
 			}
 		};
 
@@ -56,120 +67,127 @@
 					throw new Error('jebarid.scroll element can\'t be null')
 				}
 				this.element = element;
+				//props for this instance
+				this._props = clone( scroll._props );
 			},
-
 			//is element scrollable
 			scrollableVert: function() {
-				var element = this.element;
-				//true if can scroll
-				return ( element.scrollHeight > element.offsetHeight );
+				return this._scrollable( 'vert' );
 			},
-			scrollableHorz: function() {
-				var element = this.element;
-				return ( element.scrollWidth > element.offsetWidth );
+			scrollableHoz: function() {
+				return this._scrollable( 'hoz' );
 			},
 			/*
 			 * can the element scroll?
 			 */
 			scrollable: function() {
-				return ( this.scrollableVert() || this.scrollableHorz() ) ? true : false;
+				return ( this.scrollableVert() || this.scrollableHoz() ) ? true : false;
+			},
+			
+			_scrollable: function( orentation ){
+				var element = this.element,
+					props = this._props[ orentation ];
+				return element[ props.dim ] > element[ props.offset ];
 			},
 			/*
 			 * return the number of view ports that fit it
 			 */
-
 			pageCountVert: function() {
-				return Math.ceil( this.element.scrollHeight / this.viewPort()[ 1 ] );
+				return this._pageCount( 'vert' );
 			},
 			//if we cant scroll this will return 1
-			pageCountHorz: function() {
-				//figure out how many "pages" are in the scrollable and devide that by 100 to get the height perenctage
-				return Math.ceil( this.element.scrollWidth / this.viewPort()[ 0 ] );
+			pageCountHoz: function() {
+				
+				return this._pageCount( 'hoz' );
 			},
-
+			
+			_pageCount: function( orentation ){
+				var dim = this._props[ orentation ].dim;
+				return Math.ceil( this.element[ dim ] / this.viewPort()[ orentation ] );
+			},
 			/*
 			 * paging dont change the scroll postion of the element
 			 * call scrollVert, to chagne
 			 */
 			pageUp: function() {
-				this.scrollVert( -this.viewPort()[ 1 ] );
+				this.scrollVert( -this.viewPort()[ 'vert' ] );
 			},
 			pageDown: function() {
-				this.scrollVert( this.viewPort()[ 1 ] );
+				this.scrollVert( this.viewPort()[ 'vert' ] );
 			},
 
 			pageRight: function() {
-				this.scrollHorz( this.viewPort()[ 0 ] );
+				this._scroll( this.viewPort()[ 'hoz' ], 'hoz' );
 			},
 			pageLeft: function() {
-				this.scrollHorz( -this.viewPort()[ 0 ] );
+				this._scroll( -this.viewPort()[ 'hoz' ], 'hoz' );
 			},
 			
 			scrollVert: function( offset ) {
-				var element = this.element;
-				
-				if( offset === undefined ) {
-					///return
-					return element.scrollLeft;
-				}
-
-				/*
-				 * firefox does scroll the body with target being body but chrome does
-				 */
-				if( element.tagName == 'BODY' ) {
-					window.scroll( window.scrollY + offset, window.scrollY );
-				} else {
-					element.scrollTop += offset;
-				}
+				return this._scroll( offset, 'vert' );
 			},
-			scrollHorz: function( offset ) {
-				var element = this.element;
+			scrollHoz: function( offset ) {
+				return this._scroll( offset, 'hoz' );
+			},
+			_scroll: function( offset, orentation ){
+				
+				var element = this.element,
+					props = this._props[ orentation ],
+					scroll = {
+						vert: 'scrollX',
+						hoz: 'scrollY'
+					};
 				
 				if( offset === undefined ) {
 					///return
-					return element.scrollLeft;
+					return element[ props.scroll ];
 				}
 
 				/*
 				 * firefox does scroll the body with target being body but chrome does
 				 */
 				if( element.tagName == 'BODY' ) {
-					window.scroll( window.scrollX + offset, window.scrollX );
+					window.scroll( window[ scroll[ orentation ] ] + offset, scroll[ orentation ]  );
 				} else {
-					element.scrollLeft += offset;
+					element[ props.scroll ] += offset;
 				}
+				
 			},
 
 			pixelRatioVert: function( compareElement ) {
-				return this._pixelRatio( compareElement, 1 );
+				return this._pixelRatio( compareElement, 'vert' );
 			},
-			pixelRatioHorz: function( compareElement ) {
-				return this._pixelRatio( compareElement, 0 );
+			pixelRatioHoz: function( compareElement ) {
+				return this._pixelRatio( compareElement, 'hoz' );
 			},
-						/*
+			/*
 			 * return an arry of the offsetWidth / height
 			 */
 			viewPort: function() {
-				var element = this.element;
-				return [ element.offsetWidth, element.offsetHeight ];
+				var element = this.element,
+					prop = this._props;
+				return {
+					vert: element[ prop.vert.offset ],
+					hoz: element[ prop.hoz.offset ],
+				};
 			},
 			/*
-			 * need horz and viert
+			 * need hor and viert
 			 *
 			 * compare the number of pix of element to the scrollable pix
+			 * //figure out how many "pages" are in the scrollable and devide that by 100 to get the height perenctage
 			 *
 			 */
-			_pixelRatio: function( scrollbar, orentation ) {
+			_pixelRatio: function( compareElement, orentation ) {
 				var element = this.element, 
-					viewPort = this.viewPort();
+					viewPort = this.viewPort()[ orentation ],
+					props = this._props[ orentation ];
 					
-				if( orentation == 1 ) {
-					return ( ( element.scrollHeight - viewPort[ 1 ] ) / ( viewPort[ 1 ] - scrollbar.clientHeight )
-					);
-				} else {
-					return ( ( element.scrollWidth - viewPort[ 0 ] ) / ( viewPort[ 0 ] - scrollbar.clientWidth )
-					);
-				}
+					
+				return (
+					( element[ props.dim ] / viewPort ) / ( viewPort - compareElement[ props.offset ] )
+				);
+			
 			}
 
 		}
