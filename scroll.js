@@ -1,32 +1,16 @@
-/*
- * scroll utills
+/**
+ * scroll.js
+ * @author Jesse Baird <jebaird.com>
  *
- * useful methods for doing scrollable stuff in JavaScript
- *
- * Jesse Baird <jebaird.com>
- *
- * elem view port
- * isScrollable
- * page - scrolltop / left return into
- * isvisiable in view port
- *
- * pixel ratio, usful for creating custom scrollbars
- *
+ * scroll.js is a set of methods that normalizes the dom scroll api. 
  *
  * create object for tracking direction of scroll
  *
- *
- * namespace
- *
- * scrollz
- *
- * use offsetWidth becuase it includes padding and border
- *
  */
-( function() {
+(function() {
 	
 	var jebaird = window.jebaird || ( window.jebaird = {} );
-
+	
 	var clone = (function() {
 			return function( obj ) {
 				Clone.prototype = obj;
@@ -34,25 +18,26 @@
 			};
 			function Clone(){}
 		}()); 
-
-
 	var scroll = (function() {
 
 		var scroll = function( element ) {
 			return new scroll.prototype.init( element );
 		};
 		/*@static */
-		//TODO: IMPLAMENT THIS
 		scroll._props = {
+			//vertical
 			'vert': {
-				//height // width of the target element
+				/*
+				 * default to offsetHeight / width over client height because it include padding and border
+				 * seems to be the more common case
+				 */
 				offset: 'offsetHeight',
 				//where we are scrolling
 				scroll: 'scrollTop',
-				//scroll content
+				//the dimensions of the scroll content
 				dim: 'scrollHeight'
 			},
-			//hoz
+			//horizontal
 			'hoz': {
 				offset: 'offsetWidth',
 				scroll: 'scrollLeft',
@@ -61,7 +46,9 @@
 		};
 
 		scroll.prototype = {
-
+			/*
+			 * @param
+			 */
 			init: function( element ) {
 				if( !element ){
 					throw new Error('jebarid.scroll element can\'t be null')
@@ -70,6 +57,7 @@
 				//props for this instance
 				this._props = clone( scroll._props );
 			},
+			
 			//is element scrollable
 			scrollableVert: function() {
 				return this._scrollable( 'vert' );
@@ -143,14 +131,7 @@
 					return element[ props.scroll ];
 				}
 
-				/*
-				 * firefox does scroll the body with target being body but chrome does
-				 */
-				if( element.tagName == 'BODY' ) {
-					window.scroll( window[ scroll[ orentation ] ] + offset, scroll[ orentation ]  );
-				} else {
 					element[ props.scroll ] += offset;
-				}
 				
 			},
 
@@ -159,17 +140,6 @@
 			},
 			pixelRatioHoz: function( compareElement ) {
 				return this._pixelRatio( compareElement, 'hoz' );
-			},
-			/*
-			 * return an arry of the offsetWidth / height
-			 */
-			viewPort: function() {
-				var element = this.element,
-					prop = this._props;
-				return {
-					vert: element[ prop.vert.offset ],
-					hoz: element[ prop.hoz.offset ],
-				};
 			},
 			/*
 			 * need hor and viert
@@ -188,7 +158,19 @@
 					( element[ props.dim ] / viewPort ) / ( viewPort - compareElement[ props.offset ] )
 				);
 			
+			},
+			/*
+			 * return an arry of the offsetWidth / height
+			 */
+			viewPort: function() {
+				var element = this.element,
+					prop = this._props;
+				return {
+					vert: element[ prop.vert.offset ],
+					hoz: element[ prop.hoz.offset ],
+				};
 			}
+			
 
 		}
 

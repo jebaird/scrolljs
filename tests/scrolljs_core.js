@@ -8,17 +8,17 @@ module("jebaird.scroll: ", {
 
 
 test("namespace", function(){
-
+	expect( 3 );
 	ok(jebaird.scroll,'jebaird.scroll is accessable');
 	
 	ok(jebaird.scroll._props.vert,'has vert');
-	ok(jebaird.scroll._props.horz,'has hoz');
+	ok(jebaird.scroll._props.hoz,'has hoz');
 	
 	
 });
 
 test('core', function(){
-	
+	expect( 9 );
 	var yes = this.yes,
 		no = this.no;
 	
@@ -44,6 +44,7 @@ test('core', function(){
 });
 
 test('changing scroll Top/Left', function(){
+	expect( 7 );
 	//todo: test on window
 	var yes = this.yes,
 		no = this.no;
@@ -69,10 +70,31 @@ test('changing scroll Top/Left', function(){
 	},1500);
 	
 	
+
+	var sbody = jebaird.scroll( document.body );
+	
+	document.body.style.width = '100px';
+	sbody.scrollVert( 400 );
+	equals( document.body.scrollTop, 400 )
+	equals( sbody.scrollVert(), 400 );
+	
+	stop();
+	setTimeout( function(){
+		start();
+		
+		sbody.scrollVert( -400 );
+		equals( document.body.scrollTop, 0 );
+		document.body.style.width = 'auto';
+		
+	}, 2000)
+	
+	
+	
 	
 });
 
 test('px ratio', function(){
+	expect( 2 );
 	var yes = this.yes,
 		no = this.no,
 		//scrollbar is just a elm to compare the px ratio with
@@ -85,11 +107,12 @@ test('px ratio', function(){
 });
 
 test('viewport',function(){
+	expect( 2 );
 	var viewPort = this.yes.viewPort();
 	
 	equals( viewPort.vert, this.yes.element.offsetWidth )
 	equals( viewPort.hoz, this.yes.element.offsetHeight )
-})
+});
 
 
 	
