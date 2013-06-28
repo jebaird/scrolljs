@@ -146,6 +146,13 @@
 			pixelRatioHorz: function( compareElement ) {
 				return this._pixelRatio( compareElement, 0 );
 			},
+						/*
+			 * return an arry of the offsetWidth / height
+			 */
+			viewPort: function() {
+				var element = this.element;
+				return [ element.offsetWidth, element.offsetHeight ];
+			},
 			/*
 			 * need horz and viert
 			 *
@@ -163,25 +170,8 @@
 					return ( ( element.scrollWidth - viewPort[ 0 ] ) / ( viewPort[ 0 ] - scrollbar.clientWidth )
 					);
 				}
-			},
-			/*
-			 * return an arry of the offsetWidth / height
-			 */
-			viewPort: function() {
-				var element = this.element;
-				return [ element.offsetWidth, element.offsetHeight ];
-			},
-
-			_scrollPosition: function( orentation, offset ) {
-				/*
-				 * 	//get the scrollbar position
-				 _getscrollPosition: function(){
-				 var element = this.element[ 0 ];
-				 return ( this._isVert() ) ? element.scrollTop : element.scrollLeft;
-				 },
-
-				 */
 			}
+
 		}
 
 		scroll.prototype.init.prototype = scroll.prototype;

@@ -44,7 +44,7 @@ test('core', function(){
 });
 
 test('changing scroll Top/Left', function(){
-	
+	//todo: test on window
 	var yes = this.yes,
 		no = this.no;
 	
