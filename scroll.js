@@ -180,33 +180,42 @@
 					element[ props.scroll ] += offset;
 				
 			},
-
+			/*
+			 * @param {object} compareElement a dom element
+			 * @return {float}
+			 */
 			pixelRatioVert: function( compareElement ) {
 				return this._pixelRatio( compareElement, 'vert' );
 			},
+			/*
+			 * @param {object} compareElement a dom element
+			 * @return {float}
+			 */
 			pixelRatioHoz: function( compareElement ) {
 				return this._pixelRatio( compareElement, 'hoz' );
 			},
 			/*
-			 * need hor and viert
+			 * this method is very useful for building custom scrollbars
+			 * it will figure out the number of px the compareElement will need to move when this.element.scrollTop/left
+			 * changes.  
 			 *
-			 * compare the number of pix of element to the scrollable pix
-			 * //figure out how many "pages" are in the scrollable and devide that by 100 to get the height perenctage
-			 *
+			 * @param {object} compareElement a dom elemetn to compare its dimensions with this.element
+			 * @param {string} orientation vert / hoz
+			 * @return {float}
 			 */
 			_pixelRatio: function( compareElement, orientation ) {
-				var element = this.element, 
-					viewPort = this.viewPort()[ orientation ],
+				var viewPort = this.viewPort()[ orientation ],
 					props = this._props[ orientation ];
 					
 					
 				return (
-					( element[ props.dim ] / viewPort ) / ( viewPort - compareElement[ props.offset ] )
+					( this.element[ props.dim ] / viewPort ) / ( viewPort - compareElement[ props.offset ] )
 				);
 			
 			},
 			/*
-			 * return an arry of the offsetWidth / height
+			 * get the the clientHeight / Width or as we call it the view port
+			 * @return {object} { vert: 12, hoz: 100 }
 			 */
 			viewPort: function() {
 				var element = this.element,
@@ -216,7 +225,6 @@
 					hoz: element[ prop.hoz.offset ],
 				};
 			}
-			
 
 		}
 
