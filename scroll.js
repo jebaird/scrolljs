@@ -46,7 +46,7 @@
 				offset: 'offsetWidth',
 				pos: 'scrollLeft',
 				length: 'scrollWidth'
-				}
+			}
 		};
 
 		scroll.prototype = {
@@ -106,27 +106,38 @@
 			},
 			
 			scrollVert: function( offset ) {
+				var element = this.element;
+				
 				if( offset === undefined ) {
 					///return
+					return element.scrollLeft;
 				}
 
-				//set
-
 				/*
-				 * firefox does scroll the body with target being body but chome does
+				 * firefox does scroll the body with target being body but chrome does
 				 */
-				if( appendTarget.tagName == 'BODY' ) {
-					window.scroll( window.scrollX + scrollLeft, window.scrollY );
+				if( element.tagName == 'BODY' ) {
+					window.scroll( window.scrollY + offset, window.scrollY );
 				} else {
-					appendTarget.scrollLeft = scrollLeft;
+					element.scrollTop += offset;
 				}
 			},
 			scrollHorz: function( offset ) {
+				var element = this.element;
+				
 				if( offset === undefined ) {
 					///return
+					return element.scrollLeft;
 				}
 
-				//set
+				/*
+				 * firefox does scroll the body with target being body but chrome does
+				 */
+				if( element.tagName == 'BODY' ) {
+					window.scroll( window.scrollX + offset, window.scrollX );
+				} else {
+					element.scrollLeft += offset;
+				}
 			},
 
 			pixelRatioVert: function( compareElement ) {
