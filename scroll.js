@@ -4,8 +4,6 @@
  *
  * scroll.js is a set of methods that normalizes the dom scroll api. 
  *
- * create object for tracking direction of scroll
- *
  */
 (function() {
 	
