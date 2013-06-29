@@ -1,9 +1,10 @@
 /**
  * scroll.js
+ * normalizes the dom scroll api for human consumption.
  * @author Jesse Baird <jebaird.com>
  *
- * scroll.js is a set of methods that normalizes the dom scroll api. 
- *
+ * licensed under MIT https://github.com/jebaird/scrolljs/license.txt
+ * 
  */
 (function() {
 	
