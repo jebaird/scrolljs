@@ -1,6 +1,6 @@
 /**
  * scroll.js
- * normalizes the dom scroll api for human consumption.
+ * normalizes the dom scroll api for human consumption
  * @author Jesse Baird <jebaird.com>
  *
  * licensed under MIT https://github.com/jebaird/scrolljs/license.txt
