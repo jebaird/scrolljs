@@ -115,5 +115,20 @@ test('viewport',function(){
 });
 
 
+test( 'scroll direction', function(){
+	var yes = this.yes;
+	equals( yes.direction().vert, 0, 'start')
+	
+	yes.pageDown();
+	
+	equals( yes.direction().vert, 1,' after page down' )
+	
+	equals( yes.direction().vert, 0,'check again' )
+	
+	yes.pageUp()
+	equals( yes.direction().vert, -1,'after page up' )	
+	
+})
+
 	
 })();

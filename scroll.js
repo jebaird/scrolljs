@@ -219,11 +219,56 @@
 			 */
 			viewPort: function() {
 				var element = this.element,
-					prop = this._props;
+					props = this._props;
 				return {
-					vert: element[ prop.vert.offset ],
-					hoz: element[ prop.hoz.offset ],
+					vert: element[ props.vert.offset ],
+					hoz: element[ props.hoz.offset ],
 				};
+			},
+			/*
+			 * figure out the direction the element is scrolling, useful for use in event handlers
+			 * @return {object} an object that contains vert and hoz, 1 for scrolling down / right, -1 for up / left 
+			 * 		and 0 for no change
+			 */
+			direction: function(){
+				var element = this.element,
+					props = this._props,
+					types = [
+						'vert',
+						'hoz'
+					],
+					i = 1,
+					//first time coll?
+					prev = this._scrollCords || {
+						'hoz': element.scrollLeft,
+						'vert': element.scrollTop
+					},
+					// 0, 0 no change
+					ret = {
+						'hoz': 0,
+						'vert': 0
+					};
+					
+					while( i-- ){
+						var type = types[ i ],
+							currentScroll = element[ props[ type ].scroll ],
+							prevScroll = prev[ type ];
+							
+							//scrolling down / right
+						if( currentScroll > prevScroll ){
+							ret[ type ] = 1;
+							//scrolling up/left
+						}else if( currentScroll < prevScroll ){
+							ret[ type ] = -1
+						}
+					} 
+					
+					this._scrollCords = {
+						'hoz': element.scrollLeft,
+						'vert': element.scrollTop
+					};
+					
+					return ret;
 			}
 
 		}
