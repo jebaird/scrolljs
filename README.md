@@ -1,6 +1,6 @@
 # Scroll.js
 
-normalizes the dom scroll api for human consumption. it also adds helper methods that are useful when building anything based off the scroll api such as scroll bars
+scroll.js normalizes the dom scroll api for human consumption. It also contains helper methods that are useful when building anything based off the scroll api such as scroll bars.
 
 ## Examples
 
@@ -17,7 +17,6 @@ if( scroll.scrollableVert() ){
 
 in event handlers, using jquery bind events
 
-
 ```javascript
 var target $('#target');
 var scroll = jebaird.scroll( target[ 0 ] );
@@ -31,7 +30,7 @@ target.bind('scroll', function(){
 		//scrolling down, do something extra snazzy
 	}
 
-})
+});
 
 ```
 
