@@ -208,7 +208,7 @@
 					
 					
 				return (
-					( this.element[ props.dim ] / viewPort ) / ( viewPort - compareElement[ props.offset ] )
+					( this.element[ props.dim ] - viewPort ) / ( viewPort - compareElement[ props.offset ] )
 				);
 			
 			},
