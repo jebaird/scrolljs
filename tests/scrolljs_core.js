@@ -128,6 +128,22 @@ test( 'scroll direction', function(){
 	yes.pageUp()
 	equals( yes.direction().vert, -1,'after page up' )	
 	
+});
+
+test( 'paging', function(){
+	
+	var yes = this.yes;
+	
+	yes.pageDown();
+	equals( yes.pageCurrentVert('vert'), 2 );
+	
+	yes.pageUp();
+	
+	equals( yes.pageCurrentVert('vert'), 1 );
+	
+	yes.scrollVert( 150 )
+	
+	equals( yes.pageCurrentVert('vert'), 3 );
 })
 
 	

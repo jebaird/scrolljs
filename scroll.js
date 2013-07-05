@@ -120,6 +120,34 @@
 				return Math.ceil( this.element[ dim ] / this.viewPort()[ orientation ] );
 			},
 			/*
+			 * returns the current vertical page
+			 * @return {int}
+			 */
+			pageCurrentVert: function(){
+				return this._pageCurrent( 'vert' );
+			},
+			/*
+			 * returns the current horizontal page
+			 * @return {int}
+			 */
+			pageCurrentHoz: function(){
+				return this._pageCurrent( 'horz' );
+			},
+			/*
+			 * returns the current page that the scroll content is on
+			 * 
+			 * @param {string} orientation vert / hoz
+			 * @return {int}
+			 * 
+			 */
+			_pageCurrent: function( orientation ){
+				var element = this.element,
+					dim = this._props[ orientation ].dim,
+					scroll = this._props[ orientation ].scroll;
+					
+				return  Math.ceil( this.element[ scroll ]  / this.viewPort()[ orientation ] ) + 1;
+			},
+			/*
 			 * move the scroll position up one viewport
 			 *
 			 */
