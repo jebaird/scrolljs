@@ -1,6 +1,7 @@
 /**
  * scroll.js
  * normalizes the dom scroll api for human consumption
+ * useful for building widgets, pages and apps that depend on the scroll api
  * @author Jesse Baird <jebaird.com>
  *
  * licensed under MIT https://github.com/jebaird/scrolljs/license.txt
@@ -17,6 +18,7 @@
 			};
 			function Clone(){}
 		}()); 
+
 	var scroll = (function() {
 
 		var scroll = function( element ) {
@@ -50,7 +52,7 @@
 			 */
 			init: function( element ) {
 				if( !element ){
-					throw new Error('jebarid.scroll element can\'t be null')
+					throw new Error('jebarid.scroll element can\'t be null');
 				}
 				this.element = element;
 				//props for this instance
